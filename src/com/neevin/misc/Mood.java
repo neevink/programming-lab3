@@ -13,8 +13,8 @@ public class Mood {
         value = MoodType.NORMAL;
     }
 
-    public Mood(MoodType m){
-        value = m;
+    public Mood(MoodType mood){
+        value = mood;
     }
 
     public MoodType getMoodType(){
@@ -61,5 +61,27 @@ public class Mood {
         else{
             throw new RuntimeException();
         }
+    }
+
+    @Override
+    public String toString(){
+        return value.toString();
+    }
+
+    @Override
+    public int hashCode(){
+        return value.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object other){
+        if(other instanceof Mood){
+            Mood m = (Mood)other;
+
+            if(value.equals(m.value)){
+                return true;
+            }
+        }
+        return false;
     }
 }

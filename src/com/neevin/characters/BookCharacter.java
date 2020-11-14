@@ -34,8 +34,8 @@ public abstract class BookCharacter{
     }
 
     public void leavePlace(){
-        if(place.contains(this.name)) {
-            place.removeCharacter(this.name);
+        if(place != null && place.contains(this)) {
+            place.removeCharacter(this);
         }
         place = null;
     }
@@ -47,16 +47,17 @@ public abstract class BookCharacter{
             return;
         }
 
-        ArrayList<String> names = place.peek();
-        if (names.size() == 1){
+        ArrayList<BookCharacter> characters = place.peek();
+        if (characters.size() == 1){
             System.out.println(name + " оглянулся по сторонам, но никого рядом не увидел.");
             return;
         }
 
         String output = name +" оглянулся по сторонам и увидел рядом с собой:";
-        for(String e : names){
-            if(e != this.name){
-                output += " \"" + e + "\"";
+        for(BookCharacter e : characters){
+            //Персонаж не должен видеть самого себя, а только людей вокруг
+            if(!this.equals(e)){
+                output += " \"" + e.name + "\"";
             }
         }
         System.out.println(output);
@@ -77,7 +78,7 @@ public abstract class BookCharacter{
         if(other instanceof BookCharacter){
             BookCharacter character = (BookCharacter)other;
 
-            if(name == character.name && type == character.type){
+            if(name.equals(character.name) && type.equals(character.type)){
                 return true;
             }
         }

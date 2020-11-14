@@ -19,26 +19,22 @@ public class Place{
         }
 
         String output = "На местности \"" + name + "\" собрались";
-        ArrayList<String> names = peek();
-        for (String e : names){
-            output += " \"" + e + "\"";
+        ArrayList<BookCharacter> characters = peek();
+        for (BookCharacter e : characters){
+            output += " \"" + e.toString() + "\"";
         }
         System.out.println(output);
     }
 
-    //Получить список имён персонажей на сцене
-    public ArrayList<String> peek(){
-        ArrayList<String> names = new ArrayList<String>();
-        for(BookCharacter e : characters){
-            names.add(e.toString());
-        }
-        return names;
+    //Получить список персонажей на сцене
+    public ArrayList<BookCharacter> peek(){
+        return characters;
     }
 
-    //Есть ли персонаж с именем в этом месте?
-    public boolean contains(String characterName){
+    //Есть ли персонаж в этом месте?
+    public boolean contains(BookCharacter character){
         for(BookCharacter e : characters){
-            if(e.toString() == characterName){
+            if(e.equals(character)){
                 return true;
             }
         }
@@ -48,7 +44,7 @@ public class Place{
     //Получить персонажа места
     public BookCharacter getCharacter(String characterName){
         for(BookCharacter e : characters){
-            if(e.toString() == characterName){
+            if(e.toString().equals(characterName)){
                 return e;
             }
         }
@@ -62,13 +58,13 @@ public class Place{
         }
     }
 
-    public void removeCharacter(String characterName){
-        if(!contains(characterName)){
+    public void removeCharacter(BookCharacter character){
+        if(!contains(character)){
             throw new IllegalArgumentException("Персонажа нет на локации.");
         }
 
         for(BookCharacter e : characters){
-            if(e.toString() == characterName){
+            if(e.equals(character)){
                 characters.remove(e);
                 return;
             }
@@ -77,20 +73,20 @@ public class Place{
 
     @Override
     public String toString(){
-        return this.name;
+        return name;
     }
 
     @Override
     public int hashCode(){
-        return this.name.hashCode();
+        return name.hashCode();
     }
 
     @Override
     public boolean equals(Object other){
         if(other instanceof Place){
-            Place character = (Place)other;
+            Place place = (Place)other;
 
-            if(name == character.name){
+            if(name.equals(place.name)){
                 return true;
             }
         }
