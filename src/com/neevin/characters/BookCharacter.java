@@ -1,31 +1,25 @@
 package com.neevin.characters;
 
 import com.neevin.enums.CharacterType;
+import com.neevin.enums.Mood;
 import com.neevin.enums.MoodType;
 import com.neevin.misc.Place;
 
 public abstract class BookCharacter{
-    public String name;
-    protected MoodType mood;
-    protected CharacterType type;
+    public final CharacterType type;
+
+    protected Mood mood;
+    protected String name;
     protected Place place;
 
     public BookCharacter(String name, CharacterType type){
         this.name = name;
         this.type = type;
-        mood = MoodType.NORMAL;
-    }
-
-    public CharacterType getCharacterType(){
-        return this.type;
-    }
-
-    public void setMood(MoodType mood){
-        this.mood = mood;
+        mood = new Mood();
     }
 
     public MoodType getMood(){
-        return this.mood;
+        return this.mood.getMoodType();
     }
 
     public Place getPlace(Place p){
@@ -44,6 +38,7 @@ public abstract class BookCharacter{
         place = null;
     }
 
+    //Оглянуться по сторонам
     public void lookAround(){
         if(place == null){
             System.out.println(name + " оглянулся по сторонам и понял, что рядом никого нет.");
@@ -65,5 +60,28 @@ public abstract class BookCharacter{
         System.out.println(output);
     }
 
+    @Override
+    public String toString(){
+        return name;
+    }
+
+    @Override
+    public int hashCode() {
+        return name.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if(other instanceof BookCharacter){
+            var character = (BookCharacter)other;
+
+            if(name == character.name && type == character.type){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //Сказать какую-то фразу
     abstract void sayPhrase(String phrase);
 }

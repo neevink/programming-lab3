@@ -11,7 +11,7 @@ public class Human extends BookCharacter implements IReader {
 
     @Override
     public void sayPhrase(String phrase) {
-        System.out.println(this.name + " сказал: \"" + phrase + "\"");
+        System.out.println(name + " сказал: \"" + phrase + "\"");
     }
 
     @Override

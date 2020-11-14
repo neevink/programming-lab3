@@ -17,5 +17,6 @@ public class Bear extends BookCharacter{
         if(mood.canImprove()){
             mood.improve();
         }
+        System.out.println(name + " съел мёда.");
     }
 }

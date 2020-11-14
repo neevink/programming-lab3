@@ -12,6 +12,7 @@ public class Pig extends BookCharacter {
         System.out.println(this.name + " прохрюкал: \"" + phrase + "\".");
     }
 
+    //Хрюкнуть
     public void grunt(){
         //Хрюканье поднимает настроение свинке
         if(mood.canImprove()){
