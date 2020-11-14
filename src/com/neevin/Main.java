@@ -28,7 +28,7 @@ public class Main {
         pig.grunt();
         pig.leavePlace();
 
-        Poem poem = new Poem("Душа воспламенилась страстно:\nона была из пенопласта!");
+        Poem poem = new Poem("Смешной стих","Душа воспламенилась страстно:\nона была из пенопласта!");
 
         christopher.read(poem);
         christopher.lookAround();
