@@ -1,4 +1,6 @@
-package com.neevin.enums;
+package com.neevin.misc;
+
+import com.neevin.enums.MoodType;
 
 public class Mood {
     protected MoodType value;

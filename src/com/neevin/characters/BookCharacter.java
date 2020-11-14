@@ -1,7 +1,7 @@
 package com.neevin.characters;
 
 import com.neevin.enums.CharacterType;
-import com.neevin.enums.Mood;
+import com.neevin.misc.Mood;
 import com.neevin.enums.MoodType;
 import com.neevin.misc.Place;
 
