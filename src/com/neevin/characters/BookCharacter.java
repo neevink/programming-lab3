@@ -5,6 +5,8 @@ import com.neevin.misc.Mood;
 import com.neevin.enums.MoodType;
 import com.neevin.misc.Place;
 
+import java.util.ArrayList;
+
 public abstract class BookCharacter{
     public final CharacterType type;
 
@@ -45,14 +47,14 @@ public abstract class BookCharacter{
             return;
         }
 
-        var names = place.peek();
+        ArrayList<String> names = place.peek();
         if (names.size() == 1){
             System.out.println(name + " оглянулся по сторонам, но никого рядом не увидел.");
             return;
         }
 
         String output = name +" оглянулся по сторонам и увидел рядом с собой:";
-        for(var e : names){
+        for(String e : names){
             if(e != this.name){
                 output += " \"" + e + "\"";
             }
@@ -73,7 +75,7 @@ public abstract class BookCharacter{
     @Override
     public boolean equals(Object other) {
         if(other instanceof BookCharacter){
-            var character = (BookCharacter)other;
+            BookCharacter character = (BookCharacter)other;
 
             if(name == character.name && type == character.type){
                 return true;

@@ -19,8 +19,8 @@ public class Place{
         }
 
         String output = "На местности \"" + name + "\" собрались";
-        var names = peek();
-        for (var e : names){
+        ArrayList<String> names = peek();
+        for (String e : names){
             output += " \"" + e + "\"";
         }
         System.out.println(output);
@@ -28,8 +28,8 @@ public class Place{
 
     //Получить список имён персонажей на сцене
     public ArrayList<String> peek(){
-        var names = new ArrayList<String>();
-        for(var e : characters){
+        ArrayList<String> names = new ArrayList<String>();
+        for(BookCharacter e : characters){
             names.add(e.toString());
         }
         return names;
@@ -37,7 +37,7 @@ public class Place{
 
     //Есть ли персонаж с именем в этом месте?
     public boolean contains(String characterName){
-        for(var e : characters){
+        for(BookCharacter e : characters){
             if(e.toString() == characterName){
                 return true;
             }
@@ -47,7 +47,7 @@ public class Place{
 
     //Получить персонажа места
     public BookCharacter getCharacter(String characterName){
-        for(var e : characters){
+        for(BookCharacter e : characters){
             if(e.toString() == characterName){
                 return e;
             }
@@ -57,7 +57,7 @@ public class Place{
     }
 
     public void addCharacters(BookCharacter... chs){
-        for(var e : chs){
+        for(BookCharacter e : chs){
             characters.add(e);
         }
     }
@@ -67,7 +67,7 @@ public class Place{
             throw new IllegalArgumentException("Персонажа нет на локации.");
         }
 
-        for(var e : characters){
+        for(BookCharacter e : characters){
             if(e.toString() == characterName){
                 characters.remove(e);
                 return;
@@ -88,7 +88,7 @@ public class Place{
     @Override
     public boolean equals(Object other){
         if(other instanceof Place){
-            var character = (Place)other;
+            Place character = (Place)other;
 
             if(name == character.name){
                 return true;
