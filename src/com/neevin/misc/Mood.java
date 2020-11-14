@@ -38,7 +38,7 @@ public class Mood {
             value = MoodType.values()[newIndex];
         }
         else{
-            throw new IllegalCallerException();
+            throw new RuntimeException();
         }
     }
 
@@ -59,7 +59,7 @@ public class Mood {
             value = MoodType.values()[newIndex];;
         }
         else{
-            throw new IllegalCallerException();
+            throw new RuntimeException();
         }
     }
 }
