@@ -23,7 +23,7 @@ public class Mood {
 
     //Можно ли обрадовать персонажа?
     public boolean canImprove(){
-        if(value.ordinal() < statesCount){
+        if(value.ordinal() < statesCount -1){
             return true;
         }
         else{
@@ -33,7 +33,7 @@ public class Mood {
 
     //Обрадовать персонажа, повысить ему настроение
     public void improve(){
-        if(value.ordinal() < statesCount){
+        if(value.ordinal() < statesCount - 1){
             int newIndex = value.ordinal()+1;
             value = MoodType.values()[newIndex];
         }
