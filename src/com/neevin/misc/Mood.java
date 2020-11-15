@@ -4,8 +4,8 @@ import com.neevin.enums.MoodType;
 
 public class Mood {
     protected MoodType value;
-    protected final int statesCount;
-    {
+    protected final static int statesCount;
+    static {
         statesCount = MoodType.values().length;
     }
 
