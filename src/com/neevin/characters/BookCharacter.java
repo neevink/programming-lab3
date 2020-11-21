@@ -70,7 +70,7 @@ public abstract class BookCharacter{
 
     @Override
     public int hashCode() {
-        return name.hashCode();
+        return (type.ordinal() + name).hashCode();
     }
 
     @Override

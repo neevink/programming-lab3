@@ -23,7 +23,7 @@ public class Poem implements IReadable {
 
     @Override
     public int hashCode() {
-        return innerText.hashCode();
+        return (innerText+name).hashCode();
     }
 
     @Override
