@@ -75,12 +75,21 @@ public class Mood {
 
     @Override
     public boolean equals(Object other){
-        if(other instanceof Mood){
-            Mood m = (Mood)other;
+        if(this == other){
+            return true;
+        }
 
-            if(value.equals(m.value)){
-                return true;
-            }
+        if(other == null){
+            return false;
+        }
+
+        if(getClass() != other.getClass()){
+            return false;
+        }
+
+        Mood m = (Mood)other;
+        if(value.equals(m.value)){
+            return true;
         }
         return false;
     }

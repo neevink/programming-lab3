@@ -6,6 +6,7 @@ import com.neevin.enums.MoodType;
 import com.neevin.misc.Place;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public abstract class BookCharacter{
     public final CharacterType type;
@@ -70,18 +71,28 @@ public abstract class BookCharacter{
 
     @Override
     public int hashCode() {
-        return (type.ordinal() + name).hashCode();
+        return Objects.hash(type.ordinal(), name);
     }
 
     @Override
     public boolean equals(Object other) {
-        if(other instanceof BookCharacter){
-            BookCharacter character = (BookCharacter)other;
-
-            if(name.equals(character.name) && type.equals(character.type)){
-                return true;
-            }
+        if(other == this){
+            return true;
         }
+
+        if(other == null){
+            return false;
+        }
+
+        if(getClass() != other.getClass()) {
+            return false;
+        }
+
+        BookCharacter character = (BookCharacter)other;
+        if(name.equals(character.name) && type.equals(character.type)){
+            return true;
+        }
+
         return false;
     }
 
