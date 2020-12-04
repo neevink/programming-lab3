@@ -3,6 +3,7 @@ package com.neevin.characters;
 import com.neevin.enums.CharacterType;
 import com.neevin.exceptions.CharacterNotFoundException;
 import com.neevin.interfaces.IDocument;
+import com.neevin.interfaces.ISignatureMaker;
 import com.neevin.misc.Mood;
 import com.neevin.enums.MoodType;
 import com.neevin.misc.Place;
@@ -23,15 +24,15 @@ public abstract class BookCharacter{
 
     // Место, где находится персонаж
     protected Place place;
-    
-    // Подпись персонажа
-    protected Signature signature;
 
-    public BookCharacter(String name, CharacterType type, Signature signature){
+    // Функциональный интерфейс, который говорит как персонаж расписывается
+    protected ISignatureMaker signatureMaker;
+
+
+    public BookCharacter(String name, CharacterType type, ISignatureMaker signature){
         this.name = name;
         this.type = type;
-        this.signature = signature;
-        this.signature.setOwner(this);
+        this.signatureMaker = signature;
 
         mood = new Mood();
     }
@@ -125,7 +126,9 @@ public abstract class BookCharacter{
 
     // Подписать документ
     public void signDocument(IDocument document){
-        document.sign(this.signature.clone());
+        Signature newSignature = signatureMaker.makeSignature();
+        newSignature.setOwner(this);
+        document.sign(newSignature);
     }
 
     //Сказать какую-то фразу

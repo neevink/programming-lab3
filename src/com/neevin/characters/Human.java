@@ -5,10 +5,11 @@ import com.neevin.enums.SignatureStyle;
 import com.neevin.interfaces.IDocument;
 import com.neevin.interfaces.IReadable;
 import com.neevin.interfaces.IReader;
+import com.neevin.interfaces.ISignatureMaker;
 import com.neevin.misc.Signature;
 
 public class Human extends BookCharacter implements IReader {
-    public Human(String name, CharacterType type, Signature signature){
+    public Human(String name, CharacterType type, ISignatureMaker signature){
         super(name, type, signature);
     }
 

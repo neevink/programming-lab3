@@ -5,10 +5,11 @@ import com.neevin.enums.SignatureStyle;
 import com.neevin.interfaces.IDocument;
 import com.neevin.interfaces.IReadable;
 import com.neevin.interfaces.IReader;
+import com.neevin.interfaces.ISignatureMaker;
 import com.neevin.misc.Signature;
 
 public class Donkey extends BookCharacter implements IReader {
-    public Donkey(String name, CharacterType type, Signature signature){
+    public Donkey(String name, CharacterType type, ISignatureMaker signature){
         super(name, type, signature);
     }
 

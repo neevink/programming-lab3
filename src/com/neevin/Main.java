@@ -9,9 +9,7 @@ import com.neevin.misc.Signature;
 import com.neevin.misc.Think;
 import com.neevin.things.Resolution;
 
-/*  TODO:
-    1. Переписать equals()
- */
+import java.util.ArrayList;
 
 public class Main {
 
@@ -19,20 +17,21 @@ public class Main {
         // Кристофер робин находится у себя дома
         Place home = new Place("Дом Кристофера Робина");
 
-        Human christopher = new Human("Кристофер Робин", CharacterType.MAIN, new Signature(SignatureStyle.SERIF, "Робин"));
+        Human christopher = new Human("Кристофер Робин", CharacterType.MAIN, () -> new Signature(SignatureStyle.SERIF,"Робин"));
         christopher.moveToPlace(home);
+
 
         // В это время на поляне собрались звери
         Place glade = new Place("Поляна");
 
-        Bear winny = new Bear("Винни-Пух", CharacterType.MAIN, new Signature(SignatureStyle.SANS_SERIF, "ПУХ"));
-        Donkey ia = new Donkey("Иа", CharacterType.SECONDARY, new Signature(SignatureStyle.SERIF, "ИА"));
-        Pig pig = new Pig("Пятачок", CharacterType.SECONDARY, new Signature(SignatureStyle.MONOSPACE, "ПЯТАЧОК"));
-        Owl owl = new Owl("Сова", CharacterType.SECONDARY, new Signature(SignatureStyle.SANS_SERIF, "СОВА"));
-        Rabbit rabbit = new Rabbit("Кролик", CharacterType.SECONDARY, new Signature(SignatureStyle.SERIF, "КРОЛИК"));
-        Kangaroo kenga = new Kangaroo("Кенга", CharacterType.SECONDARY, new Signature(SignatureStyle.SANS_SERIF, "КЕНГА"));
-        Kangaroo ru = new Kangaroo("Крошка Ру", CharacterType.SECONDARY, new Signature(SignatureStyle.MONOSPACE, "..."));
-        Tiger tiger = new Tiger("Тигра", CharacterType.SECONDARY, new Signature(SignatureStyle.MONOSPACE, "."));
+        Bear winny = new Bear("Винни-Пух", CharacterType.MAIN, () -> new Signature(SignatureStyle.SANS_SERIF,"ПУХ"));
+        Donkey ia = new Donkey("Иа", CharacterType.SECONDARY, () -> new Signature(SignatureStyle.SERIF,"ИА"));
+        Pig pig = new Pig("Пятачок", CharacterType.SECONDARY, () -> new Signature(SignatureStyle.MONOSPACE,"Пятачок"));
+        Owl owl = new Owl("Сова", CharacterType.SECONDARY, () -> new Signature(SignatureStyle.MONOSPACE,"Сова"));
+        Rabbit rabbit = new Rabbit("Кролик", CharacterType.SECONDARY, () -> new Signature(SignatureStyle.SANS_SERIF,"Кролик"));
+        Kangaroo kenga = new Kangaroo("Кенга", CharacterType.SECONDARY, () -> new Signature(SignatureStyle.SERIF,"Кенга"));
+        Kangaroo ru = new Kangaroo("Крошка Ру", CharacterType.SECONDARY, () -> new Signature(SignatureStyle.MONOSPACE,"..."));
+        Tiger tiger = new Tiger("Тигра", CharacterType.SECONDARY, () -> new Signature(SignatureStyle.MONOSPACE,"."));
 
         winny.moveToPlace(glade);
         ia.moveToPlace(glade);
@@ -61,7 +60,7 @@ public class Main {
         }
 
         // Все подписали резолюцию и отправились к дому Кристофера Робина
-        var chars = glade.peek(); // это стрём
+        ArrayList<BookCharacter> chars = glade.peek();
         while (!chars.isEmpty()){
             chars.get(0).moveToPlace(home);
 
