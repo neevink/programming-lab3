@@ -2,6 +2,7 @@ package com.neevin.things;
 
 import com.neevin.interfaces.IReadable;
 
+// Стихотворение
 public class Poem implements IReadable {
     public final String name;
     protected String innerText;
