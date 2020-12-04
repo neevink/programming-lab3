@@ -4,10 +4,13 @@ import com.neevin.characters.BookCharacter;
 import com.neevin.enums.SignatureStyle;
 import com.neevin.interfaces.IReadable;
 
+// Подпись персонажа, может быть прочитана
 public class Signature implements IReadable {
+    // Тип и сожержание подписи
     public final SignatureStyle style;
     public final String text;
 
+    // Владелей подписи
     protected BookCharacter owner;
 
     public Signature(SignatureStyle style, String text){
