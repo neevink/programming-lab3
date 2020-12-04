@@ -6,7 +6,10 @@ import com.neevin.misc.Signature;
 // Интерфейс, который должны реализовывать все документы, которые могут быть подписаны
 public interface IDocument extends IReadable {
 
-    // Персонаж подписывает этот документ
+    // Подписть документ
     void sign(Signature signature);
+
+    // Проверка подписал ли персонаж этот документ
+    boolean signedBy(BookCharacter character);
 
 }

@@ -5,9 +5,8 @@ import com.neevin.interfaces.IDocument;
 import com.neevin.misc.Signature;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 
+// Бумажный документ, который можно подписать
 public class Resolution implements IDocument {
     public final String name;
     protected String innerText;
@@ -25,10 +24,19 @@ public class Resolution implements IDocument {
 
     @Override
     public void sign(Signature signature) {
-        //!!!!!!!!!!!!!! Не до конца реализованно!
         signers.add(signature);
 
-        //System.out.println(character.name + " подписал " + this.name);
+        System.out.println(signature.getOwner().name + " подписал " + this.name);
+    }
+
+    @Override
+    public boolean signedBy(BookCharacter character) {
+        for(Signature s : signers){
+            if(s.getOwner().equals(character)){
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
@@ -38,26 +46,22 @@ public class Resolution implements IDocument {
 
     @Override
     public int hashCode() {
-        return Objects.hash(innerText, name);
+        return innerText.hashCode() + name.hashCode();
     }
 
     @Override
-    public boolean equals(Object other) {
-        if(other == this){
+    public boolean equals(Object otherObject) {
+        if(otherObject == this){
             return true;
         }
 
-        if(other == null){
+        if(otherObject == null){
             return false;
         }
 
-        if(getClass() != other.getClass()){
-            return false;
-        }
-
-        Poem poem = (Poem)other;
-        if(name.equals(poem.name) && innerText.equals(poem.innerText)){
-            return true;
+        if(otherObject instanceof Resolution){
+            Resolution other = (Resolution)otherObject;
+            return name.equals(other.name) && innerText.equals(other.innerText);
         }
         return false;
     }

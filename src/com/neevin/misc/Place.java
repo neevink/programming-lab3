@@ -84,22 +84,18 @@ public class Place{
     }
 
     @Override
-    public boolean equals(Object other){
-        if(this == other){
+    public boolean equals(Object otherObject){
+        if(this == otherObject){
             return true;
         }
 
-        if(other == null){
+        if(otherObject == null){
             return false;
         }
 
-        if(getClass() != other.getClass()){
-            return false;
-        }
-
-        Place place = (Place)other;
-        if(name.equals(place.name)){
-            return true;
+        if(otherObject instanceof Place){
+            Place other = (Place)otherObject;
+            return this.name.equals(other.name);
         }
         return false;
     }

@@ -15,7 +15,7 @@ public class MagicPlace extends Place{
         }
     }
 
-    static boolean getRandomBoolean(){
-        return Math.random() < 1.;
+    protected boolean getRandomBoolean(){
+        return Math.random() < 0.5;
     }
 }

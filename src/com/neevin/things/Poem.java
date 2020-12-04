@@ -27,22 +27,18 @@ public class Poem implements IReadable {
     }
 
     @Override
-    public boolean equals(Object other) {
-        if(other == this){
+    public boolean equals(Object otherObject) {
+        if(otherObject == this){
             return true;
         }
 
-        if(other == null){
+        if(otherObject == null){
             return false;
         }
 
-        if(getClass() != other.getClass()){
-            return false;
-        }
-
-        Poem poem = (Poem)other;
-        if(name.equals(poem.name) && innerText.equals(poem.innerText)){
-            return true;
+        if(otherObject instanceof Poem){
+            Poem other = (Poem)otherObject;
+            return name.equals(other.name) && innerText.equals(other.innerText);
         }
         return false;
     }

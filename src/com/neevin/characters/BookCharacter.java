@@ -9,6 +9,7 @@ import com.neevin.misc.Place;
 import com.neevin.misc.Signature;
 import com.neevin.misc.Think;
 
+import java.awt.print.Book;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -24,6 +25,8 @@ public abstract class BookCharacter{
         this.name = name;
         this.type = type;
         this.signature = signature;
+        this.signature.setOwner(this);
+
         mood = new Mood();
     }
 
@@ -42,9 +45,7 @@ public abstract class BookCharacter{
             try {
                 place.removeCharacter(this);
             }
-            catch (CharacterNotFoundException e){
-
-            }
+            catch (CharacterNotFoundException e){}
         }
         place = null;
     }
@@ -79,34 +80,31 @@ public abstract class BookCharacter{
 
     @Override
     public String toString(){
-        return name;
+        return this.name;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(type.ordinal(), name);
+        return Objects.hash(this.type.ordinal(), this.name);
     }
 
     @Override
-    public boolean equals(Object other) {
-        if(other == this){
+    public boolean equals(Object otherObject) {
+        if(otherObject == this){
             return true;
         }
 
-        if(other == null){
+        if(otherObject == null){
             return false;
         }
 
-        if(getClass() != other.getClass()) {
+        if(otherObject instanceof BookCharacter) {
+            BookCharacter other = (BookCharacter) otherObject;
+            return name.equals(other.name) && type.equals(other.type);
+        }
+        else{
             return false;
         }
-
-        BookCharacter character = (BookCharacter)other;
-        if(name.equals(character.name) && type.equals(character.type)){
-            return true;
-        }
-
-        return false;
     }
 
     // Сказать что-то шёпотом
@@ -118,6 +116,7 @@ public abstract class BookCharacter{
         t.think(this);
     }
 
+    //Подписать документ
     public void signDocument(IDocument document){
         document.sign(this.signature.clone());
     }

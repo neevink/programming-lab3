@@ -1,6 +1,7 @@
 package com.neevin.misc;
 
 import com.neevin.enums.MoodType;
+import com.neevin.exceptions.MoodTypeOutOfRangeError;
 
 public class Mood {
     protected MoodType value;
@@ -38,7 +39,7 @@ public class Mood {
             value = MoodType.values()[newIndex];
         }
         else{
-            throw new RuntimeException();
+            throw new MoodTypeOutOfRangeError();
         }
     }
 
@@ -59,7 +60,7 @@ public class Mood {
             value = MoodType.values()[newIndex];;
         }
         else{
-            throw new RuntimeException();
+            throw new MoodTypeOutOfRangeError();
         }
     }
 
@@ -74,22 +75,18 @@ public class Mood {
     }
 
     @Override
-    public boolean equals(Object other){
-        if(this == other){
+    public boolean equals(Object otherObject){
+        if(this == otherObject){
             return true;
         }
 
-        if(other == null){
+        if(otherObject == null){
             return false;
         }
 
-        if(getClass() != other.getClass()){
-            return false;
-        }
-
-        Mood m = (Mood)other;
-        if(value.equals(m.value)){
-            return true;
+        if(otherObject instanceof Mood){
+            Mood other = (Mood)otherObject;
+            return this.value.equals(other.value);
         }
         return false;
     }
