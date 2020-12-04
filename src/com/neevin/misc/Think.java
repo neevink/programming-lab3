@@ -5,7 +5,7 @@ import com.neevin.interfaces.ICharacterEffect;
 
 import java.util.Objects;
 
-// Мысль
+// Мысль, о которой могут думать персонажы
 public class Think {
     public final String description;
     ICharacterEffect func;
@@ -15,6 +15,7 @@ public class Think {
         this.func = f;
     }
 
+    // Заставить персонажа думать об этом
     public void think(BookCharacter b){
         System.out.println(b.name + " думает о "+ this.description);
         func.invoke(b);
