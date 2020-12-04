@@ -13,12 +13,18 @@ import java.awt.print.Book;
 import java.util.ArrayList;
 import java.util.Objects;
 
+// Персонаж сказки
 public abstract class BookCharacter{
     public final CharacterType type;
     public final String name;
+    
+    // Настроение персонажа
     public final Mood mood;
 
+    // Место, где находится персонаж
     protected Place place;
+    
+    // Подпись персонажа
     protected Signature signature;
 
     public BookCharacter(String name, CharacterType type, Signature signature){
@@ -112,11 +118,12 @@ public abstract class BookCharacter{
         System.out.println(this.name + " прошептал: " + phrase + "\"");
     }
 
+    // Заставить персонажа задуматься о чём-то
     public void thinkAbout(Think t){
         t.think(this);
     }
 
-    //Подписать документ
+    // Подписать документ
     public void signDocument(IDocument document){
         document.sign(this.signature.clone());
     }
