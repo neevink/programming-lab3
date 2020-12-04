@@ -1,10 +1,13 @@
 package com.neevin.characters;
 
 import com.neevin.enums.CharacterType;
+import com.neevin.enums.SignatureStyle;
+import com.neevin.interfaces.IDocument;
+import com.neevin.misc.Signature;
 
 public class Bear extends BookCharacter{
-    public Bear(String name, CharacterType type){
-        super(name, type);
+    public Bear(String name, CharacterType type, Signature signature){
+        super(name, type, signature);
     }
 
     @Override
@@ -17,6 +20,6 @@ public class Bear extends BookCharacter{
         if(mood.canImprove()){
             mood.improve();
         }
-        System.out.println(name + " съел мёда.");
+        System.out.println(this.name + " съел мёда.");
     }
 }

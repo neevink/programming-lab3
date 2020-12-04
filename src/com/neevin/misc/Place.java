@@ -1,6 +1,7 @@
 package com.neevin.misc;
 
 import com.neevin.characters.BookCharacter;
+import com.neevin.exceptions.CharacterNotFoundException;
 
 import java.util.ArrayList;
 
@@ -16,6 +17,7 @@ public class Place{
     public void describe(){
         if(characters.isEmpty()){
             System.out.println("На местности \"" + name + "\" никого нет.");
+            return;
         }
 
         String output = "На местности \"" + name + "\" собрались";
@@ -42,14 +44,14 @@ public class Place{
     }
 
     //Получить персонажа места
-    public BookCharacter getCharacter(String characterName){
+    public BookCharacter getCharacter(String characterName) throws CharacterNotFoundException {
         for(BookCharacter e : characters){
             if(e.toString().equals(characterName)){
                 return e;
             }
         }
 
-        throw new IllegalArgumentException("Персонажа нет на локации.");
+        throw new CharacterNotFoundException(characterName, "Персонажа нет на локации.");
     }
 
     public void addCharacters(BookCharacter... chs){
@@ -58,9 +60,9 @@ public class Place{
         }
     }
 
-    public void removeCharacter(BookCharacter character){
+    public void removeCharacter(BookCharacter character) throws CharacterNotFoundException {
         if(!contains(character)){
-            throw new IllegalArgumentException("Персонажа нет на локации.");
+            throw new CharacterNotFoundException(character.name, "Персонажа нет на локации.");
         }
 
         for(BookCharacter e : characters){

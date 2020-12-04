@@ -1,10 +1,11 @@
 package com.neevin.characters;
 
 import com.neevin.enums.CharacterType;
+import com.neevin.misc.Signature;
 
 public class Pig extends BookCharacter {
-    public Pig(String name, CharacterType type){
-        super(name, type);
+    public Pig(String name, CharacterType type, Signature signature){
+        super(name, type, signature);
     }
 
     @Override

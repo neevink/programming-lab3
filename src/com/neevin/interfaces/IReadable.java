@@ -1,7 +1,9 @@
 package com.neevin.interfaces;
 
-//Читаемый
+// Всё, что может быть прочитано, должно реализовывать этот интерфейс
 public interface IReadable {
+
     //Получить текст
     String getInnerText();
+
 }
