@@ -2,16 +2,12 @@ package com.neevin.characters;
 
 import com.neevin.enums.CharacterType;
 import com.neevin.interfaces.ISignatureMaker;
+import com.neevin.misc.Phrase;
 import com.neevin.misc.Signature;
 
 public class Pig extends BookCharacter {
     public Pig(String name, CharacterType type, ISignatureMaker signature){
         super(name, type, signature);
-    }
-
-    @Override
-    public void sayPhrase(String phrase) {
-        System.out.println(this.name + " прохрюкал: \"" + phrase + "\".");
     }
 
     //Хрюкнуть
@@ -20,6 +16,6 @@ public class Pig extends BookCharacter {
         if(mood.canImprove()){
             mood.improve();
         }
-        System.out.println(name + " смачно хрюкнул.");
+        System.out.println(name + " смачно хрюкнул");
     }
 }

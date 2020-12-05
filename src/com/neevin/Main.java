@@ -3,10 +3,7 @@ package com.neevin;
 import com.neevin.characters.*;
 import com.neevin.enums.CharacterType;
 import com.neevin.enums.SignatureStyle;
-import com.neevin.misc.MagicPlace;
-import com.neevin.misc.Place;
-import com.neevin.misc.Signature;
-import com.neevin.misc.Think;
+import com.neevin.misc.*;
 import com.neevin.things.Resolution;
 
 import java.util.ArrayList;
@@ -42,17 +39,16 @@ public class Main {
         ru.moveToPlace(glade);
         tiger.moveToPlace(glade);
 
-        // Описать кто собрался на поляне
+        // Описать, кто собрался на поляне
         glade.describe();
 
+        // Резолюция всем понравится, поэтому они захлопают
         Resolution resolution = new Resolution("Резолюция", "Кристофер Робин, мы  пришли, чтобы сказать что нам не хочется, чтобы ты уезжал, нам без тебя грустно.");
-        ia.read(resolution);
-        ia.sayPhrase("Если кто-нибудь намерен аплодировать, то время настало");
+        ia.readAloud(resolution, ch -> ch.mood.improve(), winny, pig, owl, rabbit, kenga, ru, tiger);
 
-        // Все по поляне захлопали
-        for (BookCharacter b : glade.peek()){
-            b.clap();
-        }
+        // Эта фраза заставляет всех апплодировать
+        Phrase applause = new Phrase("Если кто-нибудь намерен аплодировать, то время настало", x -> x.clap());
+        ia.sayPhrase(applause, winny, pig, owl, rabbit, kenga, ru, tiger);
 
         // Все по поляне подписали резолюцию
         for (BookCharacter b : glade.peek()){
@@ -63,19 +59,18 @@ public class Main {
         ArrayList<BookCharacter> chars = glade.peek();
         while (!chars.isEmpty()){
             chars.get(0).moveToPlace(home);
-
         }
 
-        // Описать кто собрался у дома Кристофера Робина, а кто остался на поляне
+        // Описать, кто собрался у дома Кристофера Робина, а кто остался на поляне
         home.describe();
         glade.describe();
 
-        christopher.sayPhrase("Здравствуйте, друзья");
-        for (BookCharacter b : home.peek()){
-            if(!b.equals(christopher)) {
-                b.sayPhrase("Здравствуй");
-            }
-        }
+        // В ответ на приветствие животные тоже скажут "Здравствуй" Кристоферу
+        Phrase helloFriends = new Phrase("Здравствуйте, друзья", ch -> {
+            ch.sayPhrase(new Phrase("Здравствуй", b -> {}), christopher);
+        });
+
+        christopher.sayPhrase(helloFriends, winny, pig, owl, rabbit, kenga, ru, tiger, ia);
 
         // Мысль о прощанье с Кристофером Робиным, это расстраивает
         Think goodbyeToChristopher = new Think("прощаньи с Кристофером", x -> {
@@ -89,29 +84,31 @@ public class Main {
             }
         }
 
-        // Все, кроме Кристофера, шепчат друг другу
-        for (BookCharacter b : home.peek()){
-            if(!b.equals(christopher)){
-                b.whisper("Ну, давай ты");
+        // шепчат друг другу
+        Phrase letsYou = new Phrase("Ну давай ты", x -> {});
+        pig.whisper(letsYou, kenga);
+        kenga.whisper(letsYou, tiger);
+        tiger.whisper(letsYou, winny);
+        winny.whisper(letsYou, ia);
+
+        Phrase whatIa = new Phrase("В чём дело, Иа?", ch -> {
+            // Если персонаж - осёл, то он помашет хвостом, чтобы себя подбодрить
+            if(ch instanceof Donkey){
+                ((Donkey)ch).wagTail();
             }
-        }
+        });
+        christopher.sayPhrase(whatIa, ia);
 
-        christopher.sayPhrase("В чём дело, Иа?");
+        Phrase dontLeave = new Phrase("Кристофер Робин, мы  пришли, чтобы сказать что нам не хочется, чтобы ты уезжал, нам без тебя грустно.", ch ->{});
+        ia.sayPhrase(dontLeave, christopher);
 
-        // Помохал хвостом, чтобы себя подбодрить
-        ia.wagTail();
+        // Персонажы услышав эту фразу захотят уйти
+        Phrase bother = new Phrase("Эх, я кажется понял, что Кристофер просто хочет побыть идин, а мы все сюда пришли и надоедаем ему...", ch -> {
+            ch.leavePlace();
+        });
 
-        ia.sayPhrase("Кристофер Робин, мы  пришли, чтобы сказать что нам не хочется, чтобы ты уезжал, нам без тебя грустно.");
-        ia.sayPhrase("Эх, я кажется понял, что Кристофер просто хочет побыть идин, а мы все сюда пришли и надоедаем ему...");
+        ia.sayPhrase(bother, winny, pig, owl, rabbit, kenga, ru, tiger);
 
-        //расходятся все, кроме Винни и Кристофера
-        ia.leavePlace();
-        pig.leavePlace();
-        owl.leavePlace();
-        rabbit.leavePlace();
-        kenga.leavePlace();
-        ru.leavePlace();
-        tiger.leavePlace();
 
         // Кристофер читает резолюцию и оглядывается по сторонам
         christopher.read(resolution);
@@ -122,20 +119,24 @@ public class Main {
         christopher.moveToPlace(road);
         winny.moveToPlace(road);
 
-        christopher.sayPhrase("Пух, что ты любишь делать больше всего на свете?");
-        Think eatingHoney = new Think("мёде", x -> {
-            x.sayPhrase("Я люблю, когда мы с Пятачком  придем к тебе в гости и ты говоришь: \"Ну как, не пора ли подкрепиться?\", а я говорю: \"Я бы не  возражал\"");
-        });
+        // Фраза что ты любишь заставит медведя задуматься о мёде и ответить кристоферу
+        Phrase whatLike = new Phrase("Пух, что ты любишь делать больше всего на свете?", ch -> {
+            Think eatingHoney = new Think("мёде", x -> {
+                Phrase like = new Phrase("Я люблю, когда мы с Пятачком  придем к тебе в гости и ты говоришь: \"Ну как, не пора ли подкрепиться?\", а я говорю: \"Я бы не  возражал\"", c -> {});
+                ch.sayPhrase(like, christopher);
+            });
 
-        winny.thinkAbout(eatingHoney);
+            ch.thinkAbout(eatingHoney);
+        });
+        christopher.sayPhrase(whatLike, winny);
 
         Think differentThings = new Think("том, о сём", x -> {});
         christopher.thinkAbout(differentThings);
         winny.thinkAbout(differentThings);
 
-        Place capitansBridge = new MagicPlace("Капитанский мостик");
-        winny.moveToPlace(capitansBridge);
-        christopher.moveToPlace(capitansBridge);
+        Place capitanBridge = new MagicPlace("Капитанский мостик");
+        winny.moveToPlace(capitanBridge);
+        christopher.moveToPlace(capitanBridge);
 
     }
 }

@@ -4,18 +4,15 @@ import com.neevin.enums.CharacterType;
 import com.neevin.exceptions.CharacterNotFoundException;
 import com.neevin.interfaces.IDocument;
 import com.neevin.interfaces.ISignatureMaker;
-import com.neevin.misc.Mood;
+import com.neevin.misc.*;
 import com.neevin.enums.MoodType;
-import com.neevin.misc.Place;
-import com.neevin.misc.Signature;
-import com.neevin.misc.Think;
 
 import java.awt.print.Book;
 import java.util.ArrayList;
 import java.util.Objects;
 
 // Персонаж сказки
-public abstract class BookCharacter{
+public class BookCharacter{
     public final CharacterType type;
     public final String name;
     
@@ -114,11 +111,6 @@ public abstract class BookCharacter{
         }
     }
 
-    // Сказать что-то шёпотом
-    public void whisper(String phrase){
-        System.out.println(this.name + " прошептал: " + phrase + "\"");
-    }
-
     // Заставить персонажа задуматься о чём-то
     public void thinkAbout(Think t){
         t.think(this);
@@ -131,6 +123,25 @@ public abstract class BookCharacter{
         document.sign(newSignature);
     }
 
-    //Сказать какую-то фразу
-    public abstract void sayPhrase(String phrase);
+    // Сказать что-то шёпотом кому-то
+    public void whisper(Phrase phrase, BookCharacter character){
+        System.out.println(this.name + " прошептал: " + phrase + "\"" + " персонажу "+character.name);
+        phrase.spell(character);
+    }
+
+    // Сказать какую-то фразу кому-то
+    public void sayPhrase(Phrase phrase, BookCharacter... characters) {
+        if(characters.length == 1){
+            System.out.println(this.name + " сказал: \"" + phrase + "\"" + " персонажу "+characters[0].name);
+            phrase.spell(characters[0]);
+        }
+        else {
+            String sentence = this.name + " сказал: \"" + phrase + "\"" + " персонажам";
+            for(BookCharacter ch : characters){
+                sentence += " " + ch.name;
+            }
+            System.out.println(sentence);
+            phrase.spell(characters);
+        }
+    }
 }

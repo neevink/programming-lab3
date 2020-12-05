@@ -2,20 +2,13 @@ package com.neevin.characters;
 
 import com.neevin.enums.CharacterType;
 import com.neevin.enums.SignatureStyle;
-import com.neevin.interfaces.IDocument;
-import com.neevin.interfaces.IReadable;
-import com.neevin.interfaces.IReader;
-import com.neevin.interfaces.ISignatureMaker;
+import com.neevin.interfaces.*;
+import com.neevin.misc.Phrase;
 import com.neevin.misc.Signature;
 
 public class Donkey extends BookCharacter implements IReader {
     public Donkey(String name, CharacterType type, ISignatureMaker signature){
         super(name, type, signature);
-    }
-
-    @Override
-    public void sayPhrase(String phrase) {
-        System.out.println(this.name + " по-ослиному сказал: \"" + phrase + "\"");
     }
 
     public void wagTail(){
@@ -29,5 +22,11 @@ public class Donkey extends BookCharacter implements IReader {
     @Override
     public void read(IReadable readable) {
         System.out.println(this.name + " прочитал: \"" + readable.getInnerText() + "\"");
+    }
+
+    // Прочитать вслух текст персонажу(-ам) с применением эффекта
+    public void readAloud(IReadable readable, ICharacterEffect effect, BookCharacter... characters) {
+        Phrase phrase = new Phrase(readable.getInnerText(), effect);
+        this.sayPhrase(phrase, characters);
     }
 }

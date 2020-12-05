@@ -6,6 +6,7 @@ import com.neevin.interfaces.IDocument;
 import com.neevin.interfaces.IReadable;
 import com.neevin.interfaces.IReader;
 import com.neevin.interfaces.ISignatureMaker;
+import com.neevin.misc.Phrase;
 import com.neevin.misc.Signature;
 
 public class Human extends BookCharacter implements IReader {
@@ -14,13 +15,7 @@ public class Human extends BookCharacter implements IReader {
     }
 
     @Override
-    public void sayPhrase(String phrase) {
-        System.out.println(name + " сказал: \"" + phrase + "\"");
-    }
-
-    @Override
     public void read(IReadable r){
         System.out.println(name + " прочитал: \n\"" + r.getInnerText() + "\"");
     }
-
 }

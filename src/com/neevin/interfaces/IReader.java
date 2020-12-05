@@ -1,7 +1,9 @@
 package com.neevin.interfaces;
 
+import com.neevin.characters.BookCharacter;
+
 //Способный читать
 public interface IReader{
-    //Читать текст
+    //Читать текст про себя (не вслух)
     void read(IReadable r);
 }
