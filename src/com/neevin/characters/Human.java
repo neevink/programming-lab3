@@ -16,6 +16,9 @@ public class Human extends BookCharacter implements IReader {
 
     @Override
     public void read(IReadable r){
+        if(r == null){
+            throw new IllegalArgumentException();
+        }
         System.out.println(name + " прочитал: \n\"" + r.getInnerText() + "\"");
     }
 }

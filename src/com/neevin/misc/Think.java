@@ -3,20 +3,26 @@ package com.neevin.misc;
 import com.neevin.characters.BookCharacter;
 import com.neevin.interfaces.ICharacterEffect;
 
-import java.util.Objects;
-
 // Мысль, о которой могут думать персонажы
 public class Think {
     public final String description;
     ICharacterEffect func;
 
     public Think(String description, ICharacterEffect f){
+        if(description == null || f == null){
+            throw new IllegalArgumentException();
+        }
+
         this.description = description;
         this.func = f;
     }
 
     // Заставить персонажа думать об этом
     public void think(BookCharacter b){
+        if(b == null){
+            throw new IllegalArgumentException();
+        }
+
         System.out.println(b.name + " думает о "+ this.description);
         func.invoke(b);
     }

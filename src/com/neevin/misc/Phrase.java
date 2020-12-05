@@ -8,12 +8,20 @@ public class Phrase {
     protected ICharacterEffect effect;
 
     public Phrase(String text, ICharacterEffect effect){
+        if(text == null || effect == null){
+            throw new IllegalArgumentException();
+        }
+
         this.text = text;
         this.effect = effect;
     }
 
     // Сказать фразу персонажу
     public void spell(BookCharacter... characters){
+        if(characters == null || characters.length == 0){
+            throw new IllegalArgumentException();
+        }
+
         for (BookCharacter ch : characters){
             effect.invoke(ch);
         }

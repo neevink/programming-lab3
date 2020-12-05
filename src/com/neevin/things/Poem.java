@@ -8,6 +8,10 @@ public class Poem implements IReadable {
     protected String innerText;
 
     public Poem(String name,String text){
+        if(name == null || text == null){
+            throw new IllegalArgumentException();
+        }
+
         this.innerText = text;
         this.name = name;
     }

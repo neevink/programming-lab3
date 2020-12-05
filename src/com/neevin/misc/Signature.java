@@ -13,11 +13,19 @@ public class Signature implements IReadable {
     protected BookCharacter owner;
 
     public Signature(SignatureStyle style, String text){
+        if(style == null || text == null){
+            throw new IllegalArgumentException();
+        }
+
         this.style = style;
         this.text = text;
     }
 
     public void setOwner(BookCharacter owner){
+        if(owner == null){
+            throw new IllegalArgumentException();
+        }
+
         this.owner = owner;
     }
 

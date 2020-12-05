@@ -13,6 +13,10 @@ public class Resolution implements IDocument {
     ArrayList<Signature> signers = new ArrayList<Signature>();
 
     public Resolution(String name,String text) {
+        if(name == null || text == null){
+            throw new IllegalArgumentException();
+        }
+
         this.innerText = text;
         this.name = name;
     }
@@ -24,13 +28,21 @@ public class Resolution implements IDocument {
 
     @Override
     public void sign(Signature signature) {
-        signers.add(signature);
+        if(signature == null){
+            throw new IllegalArgumentException();
+        }
 
+        signers.add(signature);
         System.out.println(signature.getOwner().name + " подписал " + this.name);
     }
 
+    // Подписан ли документ персонажем
     @Override
     public boolean signedBy(BookCharacter character) {
+        if(character == null){
+            throw new IllegalArgumentException();
+        }
+
         for(Signature s : signers){
             if(s.getOwner().equals(character)){
                 return true;

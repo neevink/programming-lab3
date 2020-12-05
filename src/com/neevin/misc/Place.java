@@ -10,6 +10,9 @@ public class Place{
     protected ArrayList<BookCharacter> characters = new ArrayList<BookCharacter>();
 
     public Place(String name){
+        if(name == null){
+            throw new IllegalArgumentException();
+        }
         this.name = name;
     }
 
@@ -35,6 +38,10 @@ public class Place{
 
     //Есть ли персонаж в этом месте?
     public boolean contains(BookCharacter character){
+        if(character == null){
+            throw new IllegalArgumentException();
+        }
+
         for(BookCharacter e : characters){
             if(e.equals(character)){
                 return true;
@@ -45,6 +52,10 @@ public class Place{
 
     //Получить персонажа места
     public BookCharacter getCharacter(String characterName) throws CharacterNotFoundException {
+        if(characterName == null){
+            throw new IllegalArgumentException();
+        }
+
         for(BookCharacter e : characters){
             if(e.toString().equals(characterName)){
                 return e;
@@ -55,12 +66,19 @@ public class Place{
     }
 
     public void addCharacters(BookCharacter... chs){
+        if(chs == null){
+            throw new IllegalArgumentException();
+        }
+
         for(BookCharacter e : chs){
             characters.add(e);
         }
     }
 
     public void removeCharacter(BookCharacter character) throws CharacterNotFoundException {
+        if(character == null){
+            throw new IllegalArgumentException();
+        }
         if(!contains(character)){
             throw new CharacterNotFoundException(character.name, "Персонажа нет на локации.");
         }

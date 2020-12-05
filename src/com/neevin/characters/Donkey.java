@@ -21,11 +21,19 @@ public class Donkey extends BookCharacter implements IReader {
 
     @Override
     public void read(IReadable readable) {
+        if(readable == null){
+            throw new IllegalArgumentException();
+        }
+
         System.out.println(this.name + " прочитал: \"" + readable.getInnerText() + "\"");
     }
 
     // Прочитать вслух текст персонажу(-ам) с применением эффекта
     public void readAloud(IReadable readable, ICharacterEffect effect, BookCharacter... characters) {
+        if(readable == null || effect == null || characters == null || characters.length == 0){
+            throw new IllegalArgumentException();
+        }
+
         Phrase phrase = new Phrase(readable.getInnerText(), effect);
         this.sayPhrase(phrase, characters);
     }

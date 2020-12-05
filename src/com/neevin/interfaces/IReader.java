@@ -4,6 +4,6 @@ import com.neevin.characters.BookCharacter;
 
 //Способный читать
 public interface IReader{
-    //Читать текст про себя (не вслух)
+    //Читать текст
     void read(IReadable r);
 }

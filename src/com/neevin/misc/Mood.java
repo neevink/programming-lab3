@@ -15,6 +15,9 @@ public class Mood {
     }
 
     public Mood(MoodType mood){
+        if(mood == null){
+            throw new IllegalArgumentException();
+        }
         value = mood;
     }
 

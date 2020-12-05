@@ -25,8 +25,11 @@ public class BookCharacter{
     // Функциональный интерфейс, который говорит как персонаж расписывается
     protected ISignatureMaker signatureMaker;
 
-
     public BookCharacter(String name, CharacterType type, ISignatureMaker signature){
+        if(name == null || type == null || signature == null){
+            throw new IllegalArgumentException();
+        }
+
         this.name = name;
         this.type = type;
         this.signatureMaker = signature;
@@ -34,11 +37,15 @@ public class BookCharacter{
         mood = new Mood();
     }
 
-    public Place getPlace(Place p){
+    public Place getPlace(){
         return place;
     }
 
     public void moveToPlace(Place p) {
+        if(p == null){
+            throw new IllegalArgumentException();
+        }
+
         this.leavePlace();
         place = p;
         place.addCharacters(this);
@@ -113,11 +120,18 @@ public class BookCharacter{
 
     // Заставить персонажа задуматься о чём-то
     public void thinkAbout(Think t){
+        if(t == null){
+            throw new IllegalArgumentException();
+        }
         t.think(this);
     }
 
     // Подписать документ
     public void signDocument(IDocument document){
+        if(document == null){
+            throw new IllegalArgumentException();
+        }
+
         Signature newSignature = signatureMaker.makeSignature();
         newSignature.setOwner(this);
         document.sign(newSignature);
@@ -125,12 +139,23 @@ public class BookCharacter{
 
     // Сказать что-то шёпотом кому-то
     public void whisper(Phrase phrase, BookCharacter character){
+        if(phrase == null || character == null){
+            throw new IllegalArgumentException();
+        }
+
         System.out.println(this.name + " прошептал: " + phrase + "\"" + " персонажу "+character.name);
         phrase.spell(character);
     }
 
     // Сказать какую-то фразу кому-то
     public void sayPhrase(Phrase phrase, BookCharacter... characters) {
+        if(phrase == null || characters == null){
+            throw new IllegalArgumentException();
+        }
+        if(characters.length == 0){
+            throw new NullPointerException();
+        }
+
         if(characters.length == 1){
             System.out.println(this.name + " сказал: \"" + phrase + "\"" + " персонажу "+characters[0].name);
             phrase.spell(characters[0]);
