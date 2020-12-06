@@ -1,9 +1,9 @@
 package com.neevin.misc;
 
+import com.neevin.exceptions.ExceptionHelper;
 import com.neevin.characters.BookCharacter;
 import com.neevin.enums.SignatureStyle;
 import com.neevin.interfaces.IReadable;
-
 
 // Подпись персонажа, может быть прочитана
 public class Signature implements IReadable {
@@ -13,8 +13,11 @@ public class Signature implements IReadable {
     protected BookCharacter owner;
 
     public Signature(SignatureStyle style, String text){
-        if(style == null || text == null){
-            throw new IllegalArgumentException();
+        if(style == null){
+            ExceptionHelper.nullArgument("style");
+        }
+        if(text == null){
+            ExceptionHelper.nullArgument("text");
         }
 
         this.style = style;
@@ -23,7 +26,7 @@ public class Signature implements IReadable {
 
     public void setOwner(BookCharacter owner){
         if(owner == null){
-            throw new IllegalArgumentException();
+            ExceptionHelper.nullArgument("owner");
         }
 
         this.owner = owner;

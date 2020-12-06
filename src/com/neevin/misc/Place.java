@@ -1,5 +1,6 @@
 package com.neevin.misc;
 
+import com.neevin.exceptions.ExceptionHelper;
 import com.neevin.characters.BookCharacter;
 import com.neevin.exceptions.CharacterNotFoundException;
 
@@ -11,7 +12,7 @@ public class Place{
 
     public Place(String name){
         if(name == null){
-            throw new IllegalArgumentException();
+            ExceptionHelper.nullArgument("name");
         }
         this.name = name;
     }
@@ -39,7 +40,7 @@ public class Place{
     //Есть ли персонаж в этом месте?
     public boolean contains(BookCharacter character){
         if(character == null){
-            throw new IllegalArgumentException();
+            ExceptionHelper.nullArgument("character");
         }
 
         for(BookCharacter e : characters){
@@ -53,7 +54,7 @@ public class Place{
     //Получить персонажа места
     public BookCharacter getCharacter(String characterName) throws CharacterNotFoundException {
         if(characterName == null){
-            throw new IllegalArgumentException();
+            ExceptionHelper.nullArgument("characterName");
         }
 
         for(BookCharacter e : characters){
@@ -67,7 +68,10 @@ public class Place{
 
     public void addCharacters(BookCharacter... chs){
         if(chs == null){
-            throw new IllegalArgumentException();
+            ExceptionHelper.nullArgument("chs");
+        }
+        if(chs.length == 0){
+            ExceptionHelper.emptyArray("chs");
         }
 
         for(BookCharacter e : chs){
@@ -77,7 +81,7 @@ public class Place{
 
     public void removeCharacter(BookCharacter character) throws CharacterNotFoundException {
         if(character == null){
-            throw new IllegalArgumentException();
+            ExceptionHelper.nullArgument("character");
         }
         if(!contains(character)){
             throw new CharacterNotFoundException(character.name, "Персонажа нет на локации.");

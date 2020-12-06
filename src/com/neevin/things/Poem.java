@@ -1,5 +1,6 @@
 package com.neevin.things;
 
+import com.neevin.exceptions.ExceptionHelper;
 import com.neevin.interfaces.IReadable;
 
 // Стихотворение
@@ -8,8 +9,11 @@ public class Poem implements IReadable {
     protected String innerText;
 
     public Poem(String name,String text){
-        if(name == null || text == null){
-            throw new IllegalArgumentException();
+        if(name == null){
+            ExceptionHelper.nullArgument("name");
+        }
+        if(text == null){
+            ExceptionHelper.nullArgument("text");
         }
 
         this.innerText = text;

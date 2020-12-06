@@ -1,30 +1,34 @@
 package com.neevin.misc;
 
+import com.neevin.exceptions.ExceptionHelper;
 import com.neevin.characters.BookCharacter;
 import com.neevin.interfaces.ICharacterEffect;
 
 // Мысль, о которой могут думать персонажы
 public class Think {
     public final String description;
-    ICharacterEffect func;
+    ICharacterEffect effect;
 
-    public Think(String description, ICharacterEffect f){
-        if(description == null || f == null){
-            throw new IllegalArgumentException();
+    public Think(String description, ICharacterEffect eff){
+        if(description == null){
+            ExceptionHelper.nullArgument("description");
+        }
+        if(eff == null){
+            ExceptionHelper.nullArgument("eff");
         }
 
         this.description = description;
-        this.func = f;
+        this.effect = eff;
     }
 
     // Заставить персонажа думать об этом
-    public void think(BookCharacter b){
-        if(b == null){
-            throw new IllegalArgumentException();
+    public void think(BookCharacter character){
+        if(character == null){
+            ExceptionHelper.nullArgument("character");
         }
 
-        System.out.println(b.name + " думает о "+ this.description);
-        func.invoke(b);
+        System.out.println(character.name + " думает о "+ this.description);
+        effect.invoke(character);
     }
 
     @Override

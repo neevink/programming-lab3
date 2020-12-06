@@ -1,5 +1,6 @@
 package com.neevin.misc;
 
+import com.neevin.exceptions.ExceptionHelper;
 import com.neevin.enums.MoodType;
 import com.neevin.exceptions.MoodTypeOutOfRangeError;
 
@@ -16,7 +17,7 @@ public class Mood {
 
     public Mood(MoodType mood){
         if(mood == null){
-            throw new IllegalArgumentException();
+            ExceptionHelper.nullArgument("mood");
         }
         value = mood;
     }

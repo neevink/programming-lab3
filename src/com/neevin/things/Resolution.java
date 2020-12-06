@@ -1,5 +1,6 @@
 package com.neevin.things;
 
+import com.neevin.exceptions.ExceptionHelper;
 import com.neevin.characters.BookCharacter;
 import com.neevin.interfaces.IDocument;
 import com.neevin.misc.Signature;
@@ -13,8 +14,11 @@ public class Resolution implements IDocument {
     ArrayList<Signature> signers = new ArrayList<Signature>();
 
     public Resolution(String name,String text) {
-        if(name == null || text == null){
-            throw new IllegalArgumentException();
+        if(name == null){
+            ExceptionHelper.nullArgument("name");
+        }
+        if(text == null){
+            ExceptionHelper.nullArgument("text");
         }
 
         this.innerText = text;
@@ -29,7 +33,7 @@ public class Resolution implements IDocument {
     @Override
     public void sign(Signature signature) {
         if(signature == null){
-            throw new IllegalArgumentException();
+            ExceptionHelper.nullArgument("signature");
         }
 
         signers.add(signature);
@@ -40,7 +44,7 @@ public class Resolution implements IDocument {
     @Override
     public boolean signedBy(BookCharacter character) {
         if(character == null){
-            throw new IllegalArgumentException();
+            ExceptionHelper.nullArgument("character");
         }
 
         for(Signature s : signers){

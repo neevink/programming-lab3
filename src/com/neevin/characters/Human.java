@@ -1,13 +1,10 @@
 package com.neevin.characters;
 
+import com.neevin.exceptions.ExceptionHelper;
 import com.neevin.enums.CharacterType;
-import com.neevin.enums.SignatureStyle;
-import com.neevin.interfaces.IDocument;
 import com.neevin.interfaces.IReadable;
 import com.neevin.interfaces.IReader;
 import com.neevin.interfaces.ISignatureMaker;
-import com.neevin.misc.Phrase;
-import com.neevin.misc.Signature;
 
 public class Human extends BookCharacter implements IReader {
     public Human(String name, CharacterType type, ISignatureMaker signature){
@@ -15,10 +12,11 @@ public class Human extends BookCharacter implements IReader {
     }
 
     @Override
-    public void read(IReadable r){
-        if(r == null){
-            throw new IllegalArgumentException();
+    public void read(IReadable readable){
+        if(readable == null){
+            ExceptionHelper.nullArgument("readable");
         }
-        System.out.println(name + " прочитал: \n\"" + r.getInnerText() + "\"");
+
+        System.out.println(name + " прочитал: \n\"" + readable.getInnerText() + "\"");
     }
 }

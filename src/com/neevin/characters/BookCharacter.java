@@ -1,13 +1,12 @@
 package com.neevin.characters;
 
+import com.neevin.exceptions.ExceptionHelper;
 import com.neevin.enums.CharacterType;
 import com.neevin.exceptions.CharacterNotFoundException;
 import com.neevin.interfaces.IDocument;
 import com.neevin.interfaces.ISignatureMaker;
 import com.neevin.misc.*;
-import com.neevin.enums.MoodType;
 
-import java.awt.print.Book;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -26,8 +25,14 @@ public class BookCharacter{
     protected ISignatureMaker signatureMaker;
 
     public BookCharacter(String name, CharacterType type, ISignatureMaker signature){
-        if(name == null || type == null || signature == null){
-            throw new IllegalArgumentException();
+        if(name == null){
+            ExceptionHelper.nullArgument("name");
+        }
+        if(type == null){
+            ExceptionHelper.nullArgument("type");
+        }
+        if(signature == null){
+            ExceptionHelper.nullArgument("signature");
         }
 
         this.name = name;
@@ -43,7 +48,7 @@ public class BookCharacter{
 
     public void moveToPlace(Place p) {
         if(p == null){
-            throw new IllegalArgumentException();
+            ExceptionHelper.nullArgument("p");
         }
 
         this.leavePlace();
@@ -119,17 +124,17 @@ public class BookCharacter{
     }
 
     // Заставить персонажа задуматься о чём-то
-    public void thinkAbout(Think t){
-        if(t == null){
-            throw new IllegalArgumentException();
+    public void thinkAbout(Think think){
+        if(think == null){
+            ExceptionHelper.nullArgument("think");
         }
-        t.think(this);
+        think.think(this);
     }
 
     // Подписать документ
     public void signDocument(IDocument document){
         if(document == null){
-            throw new IllegalArgumentException();
+            ExceptionHelper.nullArgument("document");
         }
 
         Signature newSignature = signatureMaker.makeSignature();
@@ -139,8 +144,11 @@ public class BookCharacter{
 
     // Сказать что-то шёпотом кому-то
     public void whisper(Phrase phrase, BookCharacter character){
-        if(phrase == null || character == null){
-            throw new IllegalArgumentException();
+        if(phrase == null){
+            ExceptionHelper.nullArgument("phrase");
+        }
+        if(character == null){
+            ExceptionHelper.nullArgument("character");
         }
 
         System.out.println(this.name + " прошептал: " + phrase + "\"" + " персонажу "+character.name);
@@ -149,11 +157,14 @@ public class BookCharacter{
 
     // Сказать какую-то фразу кому-то
     public void sayPhrase(Phrase phrase, BookCharacter... characters) {
-        if(phrase == null || characters == null){
-            throw new IllegalArgumentException();
+        if(phrase == null){
+            ExceptionHelper.nullArgument("phrase");
+        }
+        if(characters == null){
+            ExceptionHelper.nullArgument("characters");
         }
         if(characters.length == 0){
-            throw new NullPointerException();
+            ExceptionHelper.emptyArray("characters");
         }
 
         if(characters.length == 1){
